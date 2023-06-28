@@ -1,5 +1,6 @@
 import { apiCallGenerator } from "./api-call";
 import { apiTermSetter } from "./api-term-setter";
+import SearchResults from "./searchResults";
 
 const SearchBar = () => {
   const form = document.createElement("form");
@@ -24,7 +25,8 @@ const SearchBar = () => {
     let value = searchbar.value;
     let source = apiTermSetter("search", value, "");
     apiCallGenerator(source).then((results) => {
-      console.log(results);
+      SearchResults.clear();
+      SearchResults.populateResults(results);
     });
 
     form.reset();
