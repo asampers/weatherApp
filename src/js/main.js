@@ -1,7 +1,7 @@
 // Import our custom CSS
 import "../scss/styles.scss";
-import { apiCallGenerator } from "./api-call";
+import SearchBar from "./form";
 
-const results = await apiCallGenerator();
-
-console.log(results);
+const searchbar = SearchBar();
+const display = document.querySelector(".container");
+display.append(searchbar);
