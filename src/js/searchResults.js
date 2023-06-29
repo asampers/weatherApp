@@ -1,5 +1,10 @@
 import { apiTermSetter } from "./api-term-setter";
 import { apiCallGenerator } from "./api-call";
+import {
+  displayContent,
+  weatherDisplay,
+  weatherOfCity,
+} from "./weatherDataDisplay";
 
 const CitySearchResultsDisplay = () => {
   const resultsContainer = document.createElement("div");
@@ -33,7 +38,9 @@ function CityLink(city) {
       "&days=3&aqi=no&alerts=no"
     );
     apiCallGenerator(source).then((results) => {
-      console.log(results);
+      weatherOfCity.update(results);
+      displayContent.container.appendChild(weatherOfCity.card);
+      weatherDisplay.append(displayContent.container);
     });
 
     SearchResults.clear();

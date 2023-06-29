@@ -1,3 +1,5 @@
+import Cloudy from "../assets/day/305.png";
+
 const WeatherOfCity = () => {
   const card = document.createElement("div");
 
@@ -17,8 +19,8 @@ const WeatherOfCity = () => {
   const condition = document.createElement("div");
   condition.textContent = "Moderate rain";
 
-  const icon = document.createElement("div");
-  icon.style.backgroundImage = "url('./assets/day/302.png')";
+  const icon = new Image();
+  icon.src = Cloudy;
 
   const highTemp = document.createElement("div");
   highTemp.textContent = "84.2°F";
@@ -87,17 +89,17 @@ const WeatherOfCity = () => {
 function populateWeatherDisplay(objs, data) {
   objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
   objs.dateTime.textContent = `${data.location.localtime}`;
-  objs.temp.textContent = `${data.current.temp_f}`;
-  objs.condition.textContent = `${data.current.condition}`;
-  objs.icon.style.backgroundImage = `url('./assets/day/${data.current.condition.code}.png')`;
-  objs.highTemp.textContent = `${data.forecast.forecastday.day.maxtemp_f}`;
-  objs.lowTemp.textContent = `${data.forecast.forecastday.day.mintemp_f}`;
-  objs.feelsLike.textContent = `${data.current.feelsLike_f}`;
-  objs.humidity.textContent = `${data.current.humidity}%`;
+  objs.temp.textContent = `${data.current.temp_f}°F`;
+  objs.condition.textContent = `${data.current.condition.text}`;
+  objs.icon.style.backgroundImage = `./assets/day/${data.current.condition.code}.png`;
+  objs.highTemp.textContent = `H: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
+  objs.lowTemp.textContent = `L: ${data.forecast.forecastday[0].day.mintemp_f}°F`;
+  objs.feelsLike.textContent = `Feels like: ${data.current.feelslike_f}°F`;
+  objs.humidity.textContent = `Humidity: ${data.current.humidity}%`;
   objs.windSpeed.textContent = `${data.current.wind_mph} mph`;
   objs.windDir.textContent = `${data.current.wind_dir}`;
-  objs.sunrise.textContent = `${data.forecast.astro.sunrise}`;
-  objs.sunset.textContent = `${data.forecast.astro.sunset}`;
+  objs.sunrise.textContent = `Sunrise: ${data.forecast.forecastday[0].astro.sunrise}`;
+  objs.sunset.textContent = `Sunset: ${data.forecast.forecastday[0].astro.sunset}`;
 }
 
 export default WeatherOfCity;

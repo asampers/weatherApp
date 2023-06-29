@@ -1,3 +1,5 @@
+import WeatherOfCity from "./weatherOfCity";
+
 const WeatherDataDisplay = () => {
   const container = document.createElement("div");
   container.className = "weather";
@@ -18,5 +20,6 @@ const DisplayContent = () => {
 
 const weatherDisplay = WeatherDataDisplay();
 const displayContent = DisplayContent();
+const weatherOfCity = WeatherOfCity();
 
-export { weatherDisplay, displayContent };
+export { weatherDisplay, displayContent, weatherOfCity };
