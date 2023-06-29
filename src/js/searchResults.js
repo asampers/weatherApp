@@ -3,7 +3,7 @@ import { apiCallGenerator } from "./api-call";
 
 const CitySearchResultsDisplay = () => {
   const resultsContainer = document.createElement("div");
-  resultsContainer.className = "results";
+  resultsContainer.className = "results d-flex justify-content-center";
 
   const populateResults = (results) => {
     results.forEach((city) => {
@@ -24,7 +24,7 @@ const CitySearchResultsDisplay = () => {
 function CityLink(city) {
   const button = document.createElement("button");
   button.textContent = `${city.name}, ${city.region}`;
-  button.className = "btn btn-outline-info";
+  button.className = "btn btn-outline-info m-1";
 
   button.addEventListener("click", () => {
     let source = apiTermSetter(
