@@ -3,6 +3,7 @@ import { apiCallGenerator } from "./api-call";
 
 const CitySearchResultsDisplay = () => {
   const resultsContainer = document.createElement("div");
+  resultsContainer.className = "results";
 
   const populateResults = (results) => {
     results.forEach((city) => {

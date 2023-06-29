@@ -1,6 +1,6 @@
 const WeatherDataDisplay = () => {
   const container = document.createElement("div");
-
+  container.className = "weather";
   return container;
 };
 
