@@ -1,5 +1,3 @@
-import Cloudy from "../assets/day/305.png";
-
 const WeatherOfCity = () => {
   const card = document.createElement("div");
 
@@ -20,8 +18,8 @@ const WeatherOfCity = () => {
   condition.textContent = "Moderate rain";
 
   const icon = new Image();
-  icon.src = Cloudy;
-
+  icon.src = new URL("../assets/day/302.png", import.meta.url);
+  console.log(`${import.meta.url}`);
   const highTemp = document.createElement("div");
   highTemp.textContent = "84.2°F";
 
@@ -91,7 +89,10 @@ function populateWeatherDisplay(objs, data) {
   objs.dateTime.textContent = `${data.location.localtime}`;
   objs.temp.textContent = `${data.current.temp_f}°F`;
   objs.condition.textContent = `${data.current.condition.text}`;
-  objs.icon.style.backgroundImage = `./assets/day/${data.current.condition.code}.png`;
+
+  determineIconFileSrc(data.current.condition.icon).then((img) => {
+    objs.icon.src = img;
+  });
   objs.highTemp.textContent = `H: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
   objs.lowTemp.textContent = `L: ${data.forecast.forecastday[0].day.mintemp_f}°F`;
   objs.feelsLike.textContent = `Feels like: ${data.current.feelslike_f}°F`;
@@ -100,6 +101,22 @@ function populateWeatherDisplay(objs, data) {
   objs.windDir.textContent = `${data.current.wind_dir}`;
   objs.sunrise.textContent = `Sunrise: ${data.forecast.forecastday[0].astro.sunrise}`;
   objs.sunset.textContent = `Sunset: ${data.forecast.forecastday[0].astro.sunset}`;
+}
+
+function determineIconFileName(data) {
+  let iconString = data;
+  let stringToRemove = "//cdn.weatherapi.com/weather/64x64";
+  let endToRemove = ".png";
+  let remainder = iconString.replace(stringToRemove, "");
+  let answer = remainder.replace(endToRemove, "");
+  return answer;
+}
+
+async function determineIconFileSrc(data) {
+  let fileName = determineIconFileName(data);
+  let module = await import(`../assets${fileName}.png`);
+  let img = await module.default;
+  return img;
 }
 
 export default WeatherOfCity;
