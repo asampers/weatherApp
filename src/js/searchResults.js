@@ -8,7 +8,8 @@ import {
 
 const CitySearchResultsDisplay = () => {
   const resultsContainer = document.createElement("div");
-  resultsContainer.className = "results d-flex justify-content-center";
+  resultsContainer.className =
+    "results d-flex justify-content-center flex-wrap";
 
   const populateResults = (results) => {
     results.forEach((city) => {

@@ -13,7 +13,7 @@ const WeatherOfCity = () => {
 
   const dateTime = document.createElement("div");
   dateTime.textContent = "2023-06-29 15:05";
-  dateTime.className = "small text-secondary";
+  dateTime.className = "small";
 
   //Main Section
   const mainSection = document.createElement("div");
