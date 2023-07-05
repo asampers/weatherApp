@@ -67,9 +67,9 @@ const WeatherOfCity = () => {
   sunsetSection.appendChild(sunset);
 
   miscWeatherSection.append(
-    humiditySection,
-    windSection,
     sunriseSection,
+    windSection,
+    humiditySection,
     sunsetSection
   );
   //End of Miscellaneous weather section
