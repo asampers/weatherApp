@@ -2,6 +2,7 @@ import { apiTermSetter } from "./api-term-setter";
 import { apiCallGenerator } from "./api-call";
 import {
   displayContent,
+  forecastOfCity,
   weatherDisplay,
   weatherOfCity,
 } from "./weatherDataDisplay";
@@ -42,7 +43,7 @@ function CityLink(city) {
     apiCallGenerator(source).then((results) => {
       setBackgroundImage(results);
       weatherOfCity.update(results);
-      displayContent.container.appendChild(weatherOfCity.card);
+      displayContent.container.append(weatherOfCity.card, forecastOfCity.card);
       weatherDisplay.append(displayContent.container);
     });
 
@@ -55,14 +56,13 @@ function CityLink(city) {
 const SearchResults = CitySearchResultsDisplay();
 
 async function setBackgroundImage(data) {
-  const body = document.querySelector("body");
   let text = await data.current.condition.text;
   let src = text.split(" ").join("-");
   let image = await fetch(
     `https://source.unsplash.com/collection/8591375/?${src}`
   );
   let imageUrl = image.url;
-  body.style.backgroundImage = `url(${imageUrl})`;
+  document.body.style.backgroundImage = `url(${imageUrl})`;
 }
 
 export default SearchResults;
