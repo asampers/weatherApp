@@ -19,7 +19,7 @@ const SearchBar = () => {
   const submit = document.createElement("button");
   submit.setAttribute("type", "submit");
   submit.textContent = "Go";
-  submit.className = "btn btn-success";
+  submit.className = "btn btn-dark";
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();

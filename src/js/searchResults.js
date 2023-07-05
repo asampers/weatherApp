@@ -16,6 +16,7 @@ const CitySearchResultsDisplay = () => {
       const card = CityLink(city);
       resultsContainer.appendChild(card);
     });
+    if (results.length == 1) resultsContainer.firstChild.click();
   };
 
   const clear = () => {
@@ -30,7 +31,7 @@ const CitySearchResultsDisplay = () => {
 function CityLink(city) {
   const button = document.createElement("button");
   button.textContent = `${city.name}, ${city.region}`;
-  button.className = "btn btn-outline-info m-1";
+  button.className = "btn btn-outline-dark m-1";
 
   button.addEventListener("click", () => {
     let source = apiTermSetter(
