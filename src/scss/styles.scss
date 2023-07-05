@@ -6,6 +6,8 @@ body {
   background-size: cover;
   height: 100%;
   overflow: hidden;
+  transition: all 0.3s ease;
+  transition-delay: 10ms;
 }
 
 .container {

@@ -40,6 +40,7 @@ function CityLink(city) {
       "&days=3&aqi=no&alerts=no"
     );
     apiCallGenerator(source).then((results) => {
+      setBackgroundImage(results);
       weatherOfCity.update(results);
       displayContent.container.appendChild(weatherOfCity.card);
       weatherDisplay.append(displayContent.container);
@@ -52,5 +53,16 @@ function CityLink(city) {
 }
 
 const SearchResults = CitySearchResultsDisplay();
+
+async function setBackgroundImage(data) {
+  const body = document.querySelector("body");
+  let text = await data.current.condition.text;
+  let src = text.split(" ").join("-");
+  let image = await fetch(
+    `https://source.unsplash.com/collection/8591375/?${src}`
+  );
+  let imageUrl = image.url;
+  body.style.backgroundImage = `url(${imageUrl})`;
+}
 
 export default SearchResults;
