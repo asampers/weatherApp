@@ -1,3 +1,8 @@
+import Humidity from "../assets/misc-icons/humidity.png";
+import Sunrise from "../assets/misc-icons/sunrise.png";
+import Sunset from "../assets/misc-icons/sunset.png";
+import Wind from "../assets/misc-icons/wind.png";
+
 const WeatherOfCity = () => {
   const card = document.createElement("div");
 
@@ -13,8 +18,9 @@ const WeatherOfCity = () => {
   //Main Section
   const mainSection = document.createElement("div");
   mainSection.className = "d-flex flex-column align-items-center";
+
   const tempSection = document.createElement("div");
-  tempSection.className = "d-flex align-items-center ";
+  tempSection.className = "d-flex align-items-center";
 
   const temp = document.createElement("div");
   temp.className = "me-4 flex-grow-1 fs-2";
@@ -42,24 +48,30 @@ const WeatherOfCity = () => {
 
   //Miscellaneous Weather Section
   const miscWeatherSection = document.createElement("div");
+  miscWeatherSection.className = "d-flex justify-content-around mt-4";
 
-  const humidity = document.createElement("div");
-  humidity.className = "humidity";
-  humidity.textContent = "52%";
+  const humiditySection = createSection(Humidity, "humidity");
+  const humidity = createElement("52%");
+  humiditySection.appendChild(humidity);
 
-  const wind = document.createElement("div");
-  wind.className = "wind"
-  wind.textContent = "9.4 mph ENE";
+  const windSection = createSection(Wind, "wind");
+  const wind = createElement("9.4 mph ENE");
+  windSection.appendChild(wind);
 
-  const sunrise = document.createElement("div");
-  sunrise.className = "sunrise"
-  sunrise.textContent = "05:15 AM";
+  const sunriseSection = createSection(Sunrise, "sunrise");
+  const sunrise = createElement("05:15 AM");
+  sunriseSection.appendChild(sunrise);
 
-  const sunset = document.createElement("div");
-  sunset.className = "sunset"
-  sunset.textContent = "08:35 PM";
+  const sunsetSection = createSection(Sunset, "sunset");
+  const sunset = createElement("08:35 PM");
+  sunsetSection.appendChild(sunset);
 
-  miscWeatherSection.append(humidity, wind, sunrise, sunset);
+  miscWeatherSection.append(
+    humiditySection,
+    windSection,
+    sunriseSection,
+    sunsetSection
+  );
   //End of Miscellaneous weather section
 
   const update = (data) => {
@@ -96,10 +108,10 @@ function populateWeatherDisplay(objs, data) {
   });
   objs.highTemp.textContent = `H: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
   objs.lowTemp.textContent = `L: ${data.forecast.forecastday[0].day.mintemp_f}°F`;
-  objs.humidity.textContent = `Humidity: ${data.current.humidity}%`;
+  objs.humidity.textContent = `${data.current.humidity}%`;
   objs.wind.textContent = `${data.current.wind_mph} mph ${data.current.wind_dir}`;
-  objs.sunrise.textContent = `Sunrise: ${data.forecast.forecastday[0].astro.sunrise}`;
-  objs.sunset.textContent = `Sunset: ${data.forecast.forecastday[0].astro.sunset}`;
+  objs.sunrise.textContent = `${data.forecast.forecastday[0].astro.sunrise}`;
+  objs.sunset.textContent = `${data.forecast.forecastday[0].astro.sunset}`;
 }
 
 function determineIconFileName(data) {
@@ -116,6 +128,24 @@ async function determineIconFileSrc(data) {
   let module = await import(`../assets${fileName}.png`);
   let img = await module.default;
   return img;
+}
+
+function createSection(iconSrc, altText) {
+  const section = document.createElement("div");
+  section.className = "d-flex flex-column align-items-center";
+  const sectionIcon = new Image();
+  sectionIcon.alt = altText;
+  sectionIcon.src = iconSrc;
+
+  section.appendChild(sectionIcon);
+  return section;
+}
+
+function createElement(text) {
+  const element = document.createElement("div");
+  element.textContent = text;
+
+  return element;
 }
 
 export default WeatherOfCity;
