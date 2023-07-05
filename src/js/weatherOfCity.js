@@ -98,6 +98,8 @@ const WeatherOfCity = () => {
 };
 
 function populateWeatherDisplay(objs, data) {
+  determineBackgroundImage(data);
+
   objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
   objs.dateTime.textContent = `${data.location.localtime}`;
   objs.temp.textContent = `${data.current.temp_f}°F`;
@@ -128,6 +130,17 @@ async function determineIconFileSrc(data) {
   let module = await import(`../assets${fileName}.png`);
   let img = await module.default;
   return img;
+}
+
+async function determineBackgroundImage(data) {
+  const body = document.querySelector("body");
+  let text = await data.current.condition.text;
+  let src = text.split(" ").join("-");
+  let image = await fetch(
+    `https://source.unsplash.com/collection/8591375/?${src}`
+  );
+  let imageUrl = image.url;
+  body.style.backgroundImage = `url(${imageUrl})`;
 }
 
 function createSection(iconSrc, altText) {
