@@ -1,6 +1,7 @@
 import { apiCallGenerator } from "./api-call";
 import { apiTermSetter } from "./api-term-setter";
 import SearchResults from "./searchResults";
+import { displayContent } from "./weatherDataDisplay";
 
 const SearchBar = () => {
   const form = document.createElement("form");
@@ -25,6 +26,7 @@ const SearchBar = () => {
     let value = searchbar.value;
     let source = apiTermSetter("search", value, "");
     apiCallGenerator(source).then((results) => {
+      displayContent.clear();
       SearchResults.clear();
       SearchResults.populateResults(results);
     });
