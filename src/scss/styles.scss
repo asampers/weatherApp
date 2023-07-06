@@ -14,31 +14,20 @@ body {
   background-color: rgba(255, 255, 255, 0.43);
 }
 
-.hourly::webkit-scrollbar {
-  width: 5px;
-  height: 7px;
-}
+@media screen and (min-width: 768px) {
+  .hourly::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+  }
 
-.hourly::-webkit-scrollbar-track {
+  .hourly::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(104, 140, 240, 0.3);
     border-radius: 8px;
   }
 
-.hourly::-webkit-scrollbar-thumb {
+  .hourly::-webkit-scrollbar-thumb {
     background-color: #d7d9db67;
     outline: 1px solid slategrey;
     border-radius: 8px;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
- 
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
- 
-::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+  } 
 }
