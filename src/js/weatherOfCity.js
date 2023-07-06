@@ -2,6 +2,7 @@ import Humidity from "../assets/misc-icons/humidity.png";
 import Sunrise from "../assets/misc-icons/sunrise.png";
 import Sunset from "../assets/misc-icons/sunset.png";
 import Wind from "../assets/misc-icons/wind.png";
+import { format } from "date-fns";
 
 const WeatherOfCity = () => {
   const card = document.createElement("div");
@@ -99,7 +100,7 @@ const WeatherOfCity = () => {
 
 function populateWeatherDisplay(objs, data) {
   objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
-  objs.dateTime.textContent = `${data.location.localtime}`;
+  objs.dateTime.textContent = formatDayTime(data.location.localtime);
   objs.temp.textContent = `${data.current.temp_f}°F`;
   objs.condition.textContent = `${data.current.condition.text}`;
 
@@ -148,4 +149,9 @@ function createElement(text) {
   return element;
 }
 
+function formatDayTime(string) {
+  let date = new Date(string);
+  let formatted = format(date, "EEE PPp");
+  return formatted;
+}
 export default WeatherOfCity;
