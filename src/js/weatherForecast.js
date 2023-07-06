@@ -27,32 +27,31 @@ const ForecastOfCity = () => {
   //End of Miscellaneous weather section
 
   const update = (data) => {
-    const cardObjs = {
-      cityName,
-      dateTime,
-      temp,
-      condition,
-      icon,
-      highTemp,
-      lowTemp,
-      humidity,
-      wind,
-      sunrise,
-      sunset,
-    };
-
-    populateForecastDisplay(cardObjs, data);
+    let hours = hourlySection.children;
+    for (let i = 0; i < hours.length; i++) {
+      let hourDivs = hours[i].children;
+      let time = hourDivs[0];
+      let icon = hourDivs[1];
+      let temp = hourDivs[2];
+      let hourObjs = {
+        time,
+        icon,
+        temp,
+      };
+      populateForecastDisplay(hourObjs, data, i);
+    }
   };
-
   card.append(headerSection, hourlySection);
 
   return { card, update };
 };
 
-function populateForecastDisplay(objs, data) {
-  objs.dateTime.textContent = `${data.location.localtime}`;
-  objs.temp.textContent = `${data.current.temp_f}°F`;
-  determineIconFileSrc(data.current.condition.icon).then((img) => {
+function populateForecastDisplay(objs, data, i) {
+  objs.time.textContent = `${data.forecast.forecastday[0].hour[i].time}`;
+  objs.temp.textContent = `${data.forecast.forecastday[0].hour[i].temp_f}°F`;
+  determineIconFileSrc(
+    data.forecast.forecastday[0].hour[i].condition.icon
+  ).then((img) => {
     objs.icon.src = img;
   });
 }

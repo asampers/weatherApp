@@ -43,6 +43,7 @@ function CityLink(city) {
     apiCallGenerator(source).then((results) => {
       setBackgroundImage(results);
       weatherOfCity.update(results);
+      forecastOfCity.update(results);
       displayContent.container.append(weatherOfCity.card, forecastOfCity.card);
       weatherDisplay.append(displayContent.container);
     });
