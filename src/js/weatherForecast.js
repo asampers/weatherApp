@@ -63,7 +63,7 @@ function populateForecastDisplay(objs, data, day, i) {
     `${data.forecast.forecastday[day].hour[i].temp_f}`
   );
   determineIconFileSrc(
-    data.forecast.forecastday[0].hour[i].condition.icon
+    data.forecast.forecastday[day].hour[i].condition.icon
   ).then((img) => {
     objs.icon.src = img;
   });

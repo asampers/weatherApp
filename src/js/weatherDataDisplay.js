@@ -1,3 +1,4 @@
+import FutureForecast from "./futureForecast";
 import ForecastOfCity from "./weatherForecast";
 import WeatherOfCity from "./weatherOfCity";
 
@@ -23,5 +24,6 @@ const weatherDisplay = WeatherDataDisplay();
 const displayContent = DisplayContent();
 const weatherOfCity = WeatherOfCity();
 const forecastOfCity = ForecastOfCity();
+const futureForecast = FutureForecast();
 
-export { weatherDisplay, displayContent, weatherOfCity, forecastOfCity };
+export { weatherDisplay, displayContent, weatherOfCity, forecastOfCity, futureForecast };

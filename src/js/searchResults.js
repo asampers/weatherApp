@@ -5,6 +5,7 @@ import {
   forecastOfCity,
   weatherDisplay,
   weatherOfCity,
+  futureForecast,
 } from "./weatherDataDisplay";
 
 const CitySearchResultsDisplay = () => {
@@ -44,7 +45,12 @@ function CityLink(city) {
       setBackgroundImage(results);
       weatherOfCity.update(results);
       forecastOfCity.update(results);
-      displayContent.container.append(weatherOfCity.card, forecastOfCity.card);
+      futureForecast.update(results);
+      displayContent.container.append(
+        weatherOfCity.card,
+        forecastOfCity.card,
+        futureForecast.card
+      );
       weatherDisplay.append(displayContent.container);
     });
 
