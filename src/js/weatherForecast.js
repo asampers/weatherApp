@@ -5,20 +5,22 @@ const ForecastOfCity = () => {
   card.className = "mt-2";
 
   const headerSection = document.createElement("div");
+  headerSection.className = "d-flex align-items-center";
 
   const headerIcon = new Image();
   headerIcon.alt = "clock";
   headerIcon.src = Clock;
 
   const header = document.createElement("span");
-  header.className = "ms-1";
+  header.className = "ms-2";
   header.textContent = "Hourly Forecast";
 
   headerSection.append(headerIcon, header);
 
   //Hourly Forecast Section
   const hourlySection = document.createElement("div");
-  hourlySection.className = "d-flex align-items-center overflow-auto hourly";
+  hourlySection.className =
+    "d-flex align-items-center my-2 overflow-auto hourly";
 
   createDay(hourlySection);
 
@@ -80,7 +82,7 @@ function createElement(text) {
 
 function createSection() {
   const section = document.createElement("div");
-  section.className = "d-flex flex-column align-items-center";
+  section.className = "d-flex flex-column align-items-center mb-2";
 
   const time = createElement("Now");
 
