@@ -18,7 +18,9 @@ const ForecastOfCity = () => {
 
   //Hourly Forecast Section
   const hourlySection = document.createElement("div");
-  hourlySection.className = "d-flex align-items-center";
+  hourlySection.className = "d-flex align-items-center overflow-auto hourly";
+
+  createDay(hourlySection);
 
   //End of Miscellaneous weather section
 
@@ -46,20 +48,11 @@ const ForecastOfCity = () => {
 };
 
 function populateForecastDisplay(objs, data) {
-  objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
   objs.dateTime.textContent = `${data.location.localtime}`;
   objs.temp.textContent = `${data.current.temp_f}°F`;
-  objs.condition.textContent = `${data.current.condition.text}`;
-
   determineIconFileSrc(data.current.condition.icon).then((img) => {
     objs.icon.src = img;
   });
-  objs.highTemp.textContent = `H: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
-  objs.lowTemp.textContent = `L: ${data.forecast.forecastday[0].day.mintemp_f}°F`;
-  objs.humidity.textContent = `${data.current.humidity}%`;
-  objs.wind.textContent = `${data.current.wind_mph} mph ${data.current.wind_dir}`;
-  objs.sunrise.textContent = `${data.forecast.forecastday[0].astro.sunrise}`;
-  objs.sunset.textContent = `${data.forecast.forecastday[0].astro.sunset}`;
 }
 
 function determineIconFileName(data) {
@@ -78,22 +71,33 @@ async function determineIconFileSrc(data) {
   return img;
 }
 
-function createSection(iconSrc, altText) {
-  const section = document.createElement("div");
-  section.className = "d-flex flex-column align-items-center";
-  const sectionIcon = new Image();
-  sectionIcon.alt = altText;
-  sectionIcon.src = iconSrc;
-
-  section.appendChild(sectionIcon);
-  return section;
-}
-
 function createElement(text) {
   const element = document.createElement("div");
   element.textContent = text;
 
   return element;
+}
+
+function createSection() {
+  const section = document.createElement("div");
+  section.className = "d-flex flex-column align-items-center";
+
+  const time = createElement("Now");
+
+  const icon = new Image();
+  icon.src = new URL("../assets/day/302.png", import.meta.url);
+
+  const temp = createElement("72°F");
+
+  section.append(time, icon, temp);
+  return section;
+}
+
+function createDay(hourlySection) {
+  for (let i = 0; i < 24; i++) {
+    let hour = createSection();
+    hourlySection.append(hour);
+  }
 }
 
 export default ForecastOfCity;
