@@ -29,6 +29,9 @@ const ForecastOfCity = () => {
 
   const update = (data) => {
     let hours = hourlySection.children;
+    let date = new Date(`${data.location.localtime}`);
+    let currentHour = date.getHours() + 1;
+    let currentDay = 0;
     for (let i = 0; i < hours.length; i++) {
       let hourDivs = hours[i].children;
       let time = hourDivs[0];
@@ -39,7 +42,12 @@ const ForecastOfCity = () => {
         icon,
         temp,
       };
-      populateForecastDisplay(hourObjs, data, i);
+      populateForecastDisplay(hourObjs, data, currentDay, currentHour);
+      currentHour++;
+      if (currentHour == 24) {
+        currentHour = 0;
+        currentDay = 1;
+      }
     }
   };
   card.append(headerSection, hourlySection);
@@ -47,9 +55,13 @@ const ForecastOfCity = () => {
   return { card, update };
 };
 
-function populateForecastDisplay(objs, data, i) {
-  objs.time.textContent = formatTime(data.forecast.forecastday[0].hour[i].time);
-  objs.temp.textContent = `${data.forecast.forecastday[0].hour[i].temp_f}°F`;
+function populateForecastDisplay(objs, data, day, i) {
+  objs.time.textContent = formatTime(
+    data.forecast.forecastday[day].hour[i].time
+  );
+  objs.temp.textContent = formatTemp(
+    `${data.forecast.forecastday[day].hour[i].temp_f}`
+  );
   determineIconFileSrc(
     data.forecast.forecastday[0].hour[i].condition.icon
   ).then((img) => {
@@ -106,6 +118,11 @@ function formatTime(string) {
   let date = new Date(string);
   let time = format(date, "haa");
   return time;
+}
+
+function formatTemp(string) {
+  let temp = string.replace(/\.\d/, "");
+  return `${temp}°F`;
 }
 
 export default ForecastOfCity;
