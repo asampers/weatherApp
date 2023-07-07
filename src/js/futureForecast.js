@@ -41,13 +41,14 @@ const FutureForecast = () => {
       let tempDivs = tempSection.children;
       let lowTemp = tempDivs[0];
       let highTemp = tempDivs[2];
+      let tempBar = tempDivs[1];
       let dayObjs = {
         day,
         icon,
         lowTemp,
         highTemp,
+        tempBar,
       };
-      //console.log(data.forecast.forecastday[ind].date);
       populateFutureDisplay(dayObjs, data, ind);
       ind++;
     }
@@ -65,13 +66,14 @@ function populateFutureDisplay(objs, data, ind) {
       objs.icon.src = img;
     }
   );
-
-  objs.lowTemp.textContent = formatTemp(
-    `${data.forecast.forecastday[ind].day.mintemp_f}`
-  );
-  objs.highTemp.textContent = formatTemp(
-    `${data.forecast.forecastday[ind].day.maxtemp_f}`
-  );
+  let tempOne = formatTemp(`${data.forecast.forecastday[ind].day.mintemp_f}`);
+  let tempTwo = formatTemp(`${data.forecast.forecastday[ind].day.maxtemp_f}`);
+  objs.lowTemp.textContent = `${tempOne}°`;
+  objs.highTemp.textContent = `${tempTwo}°`;
+  let colorOne = setColor(tempColors, tempOne);
+  let colorTwo = setColor(tempColors, tempTwo);
+  console.log(colorOne);
+  objs.tempBar.style.background = `linear-gradient(90deg, ${colorOne} 0%, ${colorTwo} 90%)`;
 }
 
 function determineIconFileName(data) {
@@ -123,19 +125,18 @@ function createSection() {
 function formatDay(string) {
   let date = new Date(`${string} 00:00`);
   let day = format(date, "EEE");
-  console.log(day);
   return day;
 }
 
 function formatTemp(string) {
   let temp = string.replace(/\.\d/, "");
-  return `${temp}°`;
+  return temp;
 }
 
 const tempColors = {
   darkblue: 32,
   lightblue: 59,
-  green: 68,
+  lightgreen: 68,
   yellow: 77,
   orange: 86,
   red: 200,
@@ -144,7 +145,6 @@ const tempColors = {
 function setColor(tempColors, temp) {
   for (let color in tempColors) {
     if (temp < tempColors[color]) {
-      console.log(color);
       return color;
     }
   }
