@@ -14,6 +14,12 @@ body {
   background-color: rgba(255, 255, 255, 0.43);
 }
 
+.tempbar {
+  height: 10px;
+  width: 160px;
+  border-radius: 8px;
+}
+
 @media screen and (min-width: 768px) {
   .hourly::-webkit-scrollbar {
     width: 8px;

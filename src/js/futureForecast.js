@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 const FutureForecast = () => {
   const card = document.createElement("div");
-  card.className = "mt-2";
+  card.className = "mt-3";
 
   const headerSection = document.createElement("div");
   headerSection.className = "d-flex align-items-center";
@@ -23,9 +23,9 @@ const FutureForecast = () => {
   dailySection.className = "row my-2 daily";
 
   const dayOne = createSection();
-  dayOne.className = "col d-flex align-items-center";
+  dayOne.classList.add("col");
   const dayTwo = createSection();
-  dayTwo.className = "col d-flex align-items-center";
+  dayTwo.classList.add("col");
   dailySection.append(dayOne, dayTwo);
 
   //End of Miscellaneous weather section
@@ -106,9 +106,12 @@ function createSection() {
   const icon = new Image();
   icon.src = new URL("../assets/day/302.png", import.meta.url);
 
-  const tempBar = document.createElement("progress");
-  tempBar.setAttribute("max", 1);
-  tempBar.setAttribute("value", 1);
+  const tempBar = document.createElement("div");
+  tempBar.className = "tempbar mx-2";
+  let colorOne = setColor(tempColors, 55);
+  let colorTwo = setColor(tempColors, 83);
+  tempBar.style.background = `linear-gradient(90deg, ${colorOne} 0%, ${colorTwo} 90%)`;
+
   const tempSection = document.createElement("div");
   tempSection.className = "d-flex align-items-center";
   tempSection.append(createElement("62"), tempBar, createElement("81"));
@@ -127,6 +130,24 @@ function formatDay(string) {
 function formatTemp(string) {
   let temp = string.replace(/\.\d/, "");
   return `${temp}°`;
+}
+
+const tempColors = {
+  darkblue: 32,
+  lightblue: 59,
+  green: 68,
+  yellow: 77,
+  orange: 86,
+  red: 200,
+};
+
+function setColor(tempColors, temp) {
+  for (let color in tempColors) {
+    if (temp < tempColors[color]) {
+      console.log(color);
+      return color;
+    }
+  }
 }
 
 export default FutureForecast;
