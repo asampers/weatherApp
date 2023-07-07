@@ -20,10 +20,12 @@ const FutureForecast = () => {
 
   //Daily Forecast Section
   const dailySection = document.createElement("div");
-  dailySection.className = "d-flex align-items-center my-2 daily";
+  dailySection.className = "row my-2 daily";
 
   const dayOne = createSection();
+  dayOne.className = "col d-flex align-items-center";
   const dayTwo = createSection();
+  dayTwo.className = "col d-flex align-items-center";
   dailySection.append(dayOne, dayTwo);
 
   //End of Miscellaneous weather section
@@ -38,7 +40,7 @@ const FutureForecast = () => {
       let tempSection = dayDivs[2];
       let tempDivs = tempSection.children;
       let lowTemp = tempDivs[0];
-      let highTemp = tempDivs[1];
+      let highTemp = tempDivs[2];
       let dayObjs = {
         day,
         icon,
@@ -104,9 +106,12 @@ function createSection() {
   const icon = new Image();
   icon.src = new URL("../assets/day/302.png", import.meta.url);
 
+  const tempBar = document.createElement("progress");
+  tempBar.setAttribute("max", 1);
+  tempBar.setAttribute("value", 1);
   const tempSection = document.createElement("div");
   tempSection.className = "d-flex align-items-center";
-  tempSection.append(createElement("62"), createElement("81"));
+  tempSection.append(createElement("62"), tempBar, createElement("81"));
 
   section.append(day, icon, tempSection);
   return section;
