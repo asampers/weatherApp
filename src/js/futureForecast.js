@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 const FutureForecast = () => {
   const card = document.createElement("div");
-  card.className = "mt-3";
+  card.className = "mt-4";
 
   const headerSection = document.createElement("div");
   headerSection.className = "d-flex align-items-center";
@@ -20,7 +20,7 @@ const FutureForecast = () => {
 
   //Daily Forecast Section
   const dailySection = document.createElement("div");
-  dailySection.className = "row my-2 daily";
+  dailySection.className = "row my-2 mx-1 daily";
 
   const dayOne = createSection();
   dayOne.classList.add("col");
@@ -59,20 +59,19 @@ const FutureForecast = () => {
 };
 
 function populateFutureDisplay(objs, data, ind) {
-  objs.day.textContent = formatDay(data.forecast.forecastday[ind].date);
+  let tempOne = formatTemp(`${data.forecast.forecastday[ind].day.mintemp_f}`);
+  let tempTwo = formatTemp(`${data.forecast.forecastday[ind].day.maxtemp_f}`);
+  let colorOne = setColor(tempColors, tempOne);
+  let colorTwo = setColor(tempColors, tempTwo);
 
+  objs.day.textContent = formatDay(data.forecast.forecastday[ind].date);
   determineIconFileSrc(data.forecast.forecastday[ind].day.condition.icon).then(
     (img) => {
       objs.icon.src = img;
     }
   );
-  let tempOne = formatTemp(`${data.forecast.forecastday[ind].day.mintemp_f}`);
-  let tempTwo = formatTemp(`${data.forecast.forecastday[ind].day.maxtemp_f}`);
   objs.lowTemp.textContent = `${tempOne}°`;
   objs.highTemp.textContent = `${tempTwo}°`;
-  let colorOne = setColor(tempColors, tempOne);
-  let colorTwo = setColor(tempColors, tempTwo);
-  console.log(colorOne);
   objs.tempBar.style.background = `linear-gradient(90deg, ${colorOne} 0%, ${colorTwo} 90%)`;
 }
 

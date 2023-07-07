@@ -49,7 +49,7 @@ const WeatherOfCity = () => {
 
   //Miscellaneous Weather Section
   const miscWeatherSection = document.createElement("div");
-  miscWeatherSection.className = "d-flex justify-content-around mt-4";
+  miscWeatherSection.className = "d-flex justify-content-around mt-5";
 
   const humiditySection = createSection(Humidity, "humidity");
   const humidity = createElement("52%");
