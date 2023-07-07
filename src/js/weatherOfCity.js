@@ -6,6 +6,7 @@ import { format } from "date-fns";
 
 const WeatherOfCity = () => {
   const card = document.createElement("div");
+  card.className = "city-weather";
 
   //Header of Card
   const cityName = document.createElement("div");

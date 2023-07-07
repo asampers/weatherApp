@@ -4,12 +4,13 @@ import WeatherOfCity from "./weatherOfCity";
 
 const WeatherDataDisplay = () => {
   const container = document.createElement("div");
-  container.className = "weather";
+  container.className = "display";
   return container;
 };
 
 const DisplayContent = () => {
   const container = document.createElement("div");
+  container.className = "weather";
 
   const clear = () => {
     while (container.firstChild) {
@@ -26,4 +27,10 @@ const weatherOfCity = WeatherOfCity();
 const forecastOfCity = ForecastOfCity();
 const futureForecast = FutureForecast();
 
-export { weatherDisplay, displayContent, weatherOfCity, forecastOfCity, futureForecast };
+export {
+  weatherDisplay,
+  displayContent,
+  weatherOfCity,
+  forecastOfCity,
+  futureForecast,
+};

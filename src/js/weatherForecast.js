@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 const ForecastOfCity = () => {
   const card = document.createElement("div");
-  card.className = "mt-4";
+  card.className = "hourly-forecast mt-4";
 
   const headerSection = document.createElement("div");
   headerSection.className = "d-flex align-items-center";
