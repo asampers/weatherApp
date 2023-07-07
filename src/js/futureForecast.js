@@ -35,10 +35,15 @@ const FutureForecast = () => {
       let dayDivs = days[i].children;
       let day = dayDivs[0];
       let icon = dayDivs[1];
-      let temp = dayDivs[2];
+      let tempSection = dayDivs[2];
+      let tempDivs = tempSection.children;
+      let lowTemp = tempDivs[0];
+      let highTemp = tempDivs[1];
       let dayObjs = {
         day,
         icon,
+        lowTemp,
+        highTemp,
       };
       //console.log(data.forecast.forecastday[ind].date);
       populateFutureDisplay(dayObjs, data, ind);
@@ -52,10 +57,18 @@ const FutureForecast = () => {
 
 function populateFutureDisplay(objs, data, ind) {
   objs.day.textContent = formatDay(data.forecast.forecastday[ind].date);
+
   determineIconFileSrc(data.forecast.forecastday[ind].day.condition.icon).then(
     (img) => {
       objs.icon.src = img;
     }
+  );
+
+  objs.lowTemp.textContent = formatTemp(
+    `${data.forecast.forecastday[ind].day.mintemp_f}`
+  );
+  objs.highTemp.textContent = formatTemp(
+    `${data.forecast.forecastday[ind].day.maxtemp_f}`
   );
 }
 
@@ -100,7 +113,6 @@ function createSection() {
 }
 
 function formatDay(string) {
-  console.log(string);
   let date = new Date(`${string} 00:00`);
   let day = format(date, "EEE");
   console.log(day);
@@ -109,7 +121,7 @@ function formatDay(string) {
 
 function formatTemp(string) {
   let temp = string.replace(/\.\d/, "");
-  return `${temp}°F`;
+  return `${temp}°`;
 }
 
 export default FutureForecast;
