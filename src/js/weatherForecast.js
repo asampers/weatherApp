@@ -1,22 +1,18 @@
 import Clock from "../assets/misc-icons/clock.png";
 import { format } from "date-fns";
+import { createIconSection, createElement } from "./weatherOfCity";
 
 const ForecastOfCity = () => {
   const card = document.createElement("div");
   card.className = "hourly-forecast mt-4";
 
-  const headerSection = document.createElement("div");
-  headerSection.className = "d-flex align-items-center";
+  const headerSection = createIconSection(Clock, "clock");
+  headerSection.classList.remove("flex-column");
 
-  const headerIcon = new Image();
-  headerIcon.alt = "clock";
-  headerIcon.src = Clock;
-
-  const header = document.createElement("span");
+  const header = createElement("Hourly Forecast");
   header.className = "ms-2";
-  header.textContent = "Hourly Forecast";
 
-  headerSection.append(headerIcon, header);
+  headerSection.append(header);
 
   //Hourly Forecast Section
   const hourlySection = document.createElement("div");
@@ -85,16 +81,9 @@ async function determineIconFileSrc(data) {
   return img;
 }
 
-function createElement(text) {
-  const element = document.createElement("div");
-  element.textContent = text;
-
-  return element;
-}
-
-function createSection() {
-  const section = document.createElement("div");
-  section.className = "d-flex flex-column align-items-center mb-2";
+function createHour() {
+  const hour = document.createElement("div");
+  hour.className = "d-flex flex-column align-items-center mb-2";
 
   const time = createElement("Now");
 
@@ -103,13 +92,13 @@ function createSection() {
 
   const temp = createElement("72°F");
 
-  section.append(time, icon, temp);
-  return section;
+  hour.append(time, icon, temp);
+  return hour;
 }
 
 function createDay(hourlySection) {
   for (let i = 0; i < 24; i++) {
-    let hour = createSection();
+    let hour = createHour();
     hourlySection.append(hour);
   }
 }

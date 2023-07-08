@@ -52,19 +52,19 @@ const WeatherOfCity = () => {
   const miscWeatherSection = document.createElement("div");
   miscWeatherSection.className = "d-flex justify-content-around mt-5";
 
-  const humiditySection = createSection(Humidity, "humidity");
+  const humiditySection = createIconSection(Humidity, "humidity");
   const humidity = createElement("52%");
   humiditySection.appendChild(humidity);
 
-  const windSection = createSection(Wind, "wind");
+  const windSection = createIconSection(Wind, "wind");
   const wind = createElement("9.4 mph ENE");
   windSection.appendChild(wind);
 
-  const sunriseSection = createSection(Sunrise, "sunrise");
+  const sunriseSection = createIconSection(Sunrise, "sunrise");
   const sunrise = createElement("05:15 AM");
   sunriseSection.appendChild(sunrise);
 
-  const sunsetSection = createSection(Sunset, "sunset");
+  const sunsetSection = createIconSection(Sunset, "sunset");
   const sunset = createElement("08:35 PM");
   sunsetSection.appendChild(sunset);
 
@@ -131,7 +131,7 @@ async function determineIconFileSrc(icon) {
   return img;
 }
 
-function createSection(iconSrc, altText) {
+function createIconSection(iconSrc, altText) {
   const section = document.createElement("div");
   section.className = "d-flex flex-column align-items-center";
   const sectionIcon = new Image();
@@ -154,4 +154,4 @@ function formatDayTime(string) {
   let formatted = format(date, "EEE PPp");
   return formatted;
 }
-export default WeatherOfCity;
+export {WeatherOfCity, createIconSection, createElement};
