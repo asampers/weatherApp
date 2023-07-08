@@ -116,17 +116,16 @@ function populateWeatherDisplay(objs, data) {
   objs.sunset.textContent = `${data.forecast.forecastday[0].astro.sunset}`;
 }
 
-function determineIconFileName(data) {
-  let iconString = data;
+function determineIconFileName(string) {
   let stringToRemove = "//cdn.weatherapi.com/weather/64x64";
   let endToRemove = ".png";
-  let remainder = iconString.replace(stringToRemove, "");
-  let answer = remainder.replace(endToRemove, "");
-  return answer;
+  let remainder = string.replace(stringToRemove, "");
+  let fileName = remainder.replace(endToRemove, "");
+  return fileName;
 }
 
-async function determineIconFileSrc(data) {
-  let fileName = determineIconFileName(data);
+async function determineIconFileSrc(icon) {
+  let fileName = determineIconFileName(icon);
   let module = await import(`../assets${fileName}.png`);
   let img = await module.default;
   return img;
