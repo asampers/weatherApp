@@ -1,34 +1,30 @@
 import Calendar from "../assets/misc-icons/calendar.png";
 import { format } from "date-fns";
+import { createIconSection, createElement } from "./weatherOfCity";
 
 const FutureForecast = () => {
   const card = document.createElement("div");
   card.className = "future-forecast mt-4";
 
-  const headerSection = document.createElement("div");
-  headerSection.className = "d-flex align-items-center";
+  const headerSection = createIconSection(Calendar, "calendar");
+  headerSection.classList.remove("flex-column");
 
-  const headerIcon = new Image();
-  headerIcon.alt = "calendar";
-  headerIcon.src = Calendar;
-
-  const header = document.createElement("span");
+  const header = createElement("Future Forecast");
   header.className = "ms-2";
-  header.textContent = "Future Forecast";
 
-  headerSection.append(headerIcon, header);
+  headerSection.append(header);
 
   //Daily Forecast Section
   const dailySection = document.createElement("div");
   dailySection.className = "row my-2 mx-1 daily";
 
-  const dayOne = createSection();
-  dayOne.classList.add("col");
-  const dayTwo = createSection();
-  dayTwo.classList.add("col");
+  const dayOne = createForecastDay();
+
+  const dayTwo = createForecastDay();
+
   dailySection.append(dayOne, dayTwo);
 
-  //End of Miscellaneous weather section
+  //End of Daily Forecast Section
 
   const update = (data) => {
     let days = dailySection.children;
@@ -91,27 +87,26 @@ async function determineIconFileSrc(data) {
   return img;
 }
 
-function createElement(text) {
-  const element = document.createElement("div");
-  element.textContent = text;
+function createTempBar() {
+  const tempBar = document.createElement("div");
+  tempBar.className = "tempbar mx-2";
+  let colorOne = setColor(tempColors, 55);
+  let colorTwo = setColor(tempColors, 83);
+  tempBar.style.background = `linear-gradient(90deg, ${colorOne} 0%, ${colorTwo} 90%)`;
 
-  return element;
+  return tempBar;
 }
 
-function createSection() {
+function createForecastDay() {
   const section = document.createElement("div");
-  section.className = "d-flex align-items-center";
+  section.className = "col d-flex align-items-center";
 
   const day = createElement("Fri");
 
   const icon = new Image();
   icon.src = new URL("../assets/day/302.png", import.meta.url);
 
-  const tempBar = document.createElement("div");
-  tempBar.className = "tempbar mx-2";
-  let colorOne = setColor(tempColors, 55);
-  let colorTwo = setColor(tempColors, 83);
-  tempBar.style.background = `linear-gradient(90deg, ${colorOne} 0%, ${colorTwo} 90%)`;
+  const tempBar = createTempBar();
 
   const tempSection = document.createElement("div");
   tempSection.className = "d-flex align-items-center";
