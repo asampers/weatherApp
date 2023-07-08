@@ -1,10 +1,10 @@
 import Calendar from "../assets/misc-icons/calendar.png";
-import { format } from "date-fns";
 
 import {
   determineIconFileSrc,
   createIconSection,
   createElement,
+  formatDayTime,
 } from "./helper-functions";
 
 const FutureForecast = () => {
@@ -65,7 +65,10 @@ function populateFutureDisplay(objs, data, ind) {
   let colorOne = setColor(tempColors, tempOne);
   let colorTwo = setColor(tempColors, tempTwo);
 
-  objs.day.textContent = formatDay(data.forecast.forecastday[ind].date);
+  objs.day.textContent = formatDayTime(
+    `${data.forecast.forecastday[ind].date} 00:00`,
+    "EEE"
+  );
   determineIconFileSrc(data.forecast.forecastday[ind].day.condition.icon).then(
     (img) => {
       objs.icon.src = img;
@@ -103,12 +106,6 @@ function createForecastDay() {
 
   section.append(day, icon, tempSection);
   return section;
-}
-
-function formatDay(string) {
-  let date = new Date(`${string} 00:00`);
-  let day = format(date, "EEE");
-  return day;
 }
 
 function formatTemp(string) {

@@ -1,6 +1,10 @@
 import Clock from "../assets/misc-icons/clock.png";
-import { format } from "date-fns";
-import { determineIconFileSrc, createIconSection, createElement } from "./helper-functions";
+import {
+  determineIconFileSrc,
+  createIconSection,
+  createElement,
+  formatDayTime,
+} from "./helper-functions";
 
 const ForecastOfCity = () => {
   const card = document.createElement("div");
@@ -52,8 +56,9 @@ const ForecastOfCity = () => {
 };
 
 function populateForecastDisplay(objs, data, day, i) {
-  objs.time.textContent = formatTime(
-    data.forecast.forecastday[day].hour[i].time
+  objs.time.textContent = formatDayTime(
+    data.forecast.forecastday[day].hour[i].time,
+    "haa"
   );
   objs.temp.textContent = formatTemp(
     `${data.forecast.forecastday[day].hour[i].temp_f}`
@@ -85,12 +90,6 @@ function createDay(hourlySection) {
     let hour = createHour();
     hourlySection.append(hour);
   }
-}
-
-function formatTime(string) {
-  let date = new Date(string);
-  let time = format(date, "haa");
-  return time;
 }
 
 function formatTemp(string) {
