@@ -2,7 +2,12 @@ import Humidity from "../assets/misc-icons/humidity.png";
 import Sunrise from "../assets/misc-icons/sunrise.png";
 import Sunset from "../assets/misc-icons/sunset.png";
 import Wind from "../assets/misc-icons/wind.png";
-import { format } from "date-fns";
+import {
+  determineIconFileSrc,
+  createElement,
+  createIconSection,
+  formatDayTime,
+} from "./helper-functions";
 
 const WeatherOfCity = () => {
   const card = document.createElement("div");
@@ -101,7 +106,7 @@ const WeatherOfCity = () => {
 
 function populateWeatherDisplay(objs, data) {
   objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
-  objs.dateTime.textContent = formatDayTime(data.location.localtime);
+  objs.dateTime.textContent = formatDayTime(data.location.localtime, "EEE PPp");
   objs.temp.textContent = `${data.current.temp_f}°F`;
   objs.condition.textContent = `${data.current.condition.text}`;
 
@@ -116,42 +121,4 @@ function populateWeatherDisplay(objs, data) {
   objs.sunset.textContent = `${data.forecast.forecastday[0].astro.sunset}`;
 }
 
-function determineIconFileName(string) {
-  let stringToRemove = "//cdn.weatherapi.com/weather/64x64";
-  let endToRemove = ".png";
-  let remainder = string.replace(stringToRemove, "");
-  let fileName = remainder.replace(endToRemove, "");
-  return fileName;
-}
-
-async function determineIconFileSrc(icon) {
-  let fileName = determineIconFileName(icon);
-  let module = await import(`../assets${fileName}.png`);
-  let img = await module.default;
-  return img;
-}
-
-function createIconSection(iconSrc, altText) {
-  const section = document.createElement("div");
-  section.className = "d-flex flex-column align-items-center";
-  const sectionIcon = new Image();
-  sectionIcon.alt = altText;
-  sectionIcon.src = iconSrc;
-
-  section.appendChild(sectionIcon);
-  return section;
-}
-
-function createElement(text) {
-  const element = document.createElement("div");
-  element.textContent = text;
-
-  return element;
-}
-
-function formatDayTime(string) {
-  let date = new Date(string);
-  let formatted = format(date, "EEE PPp");
-  return formatted;
-}
-export {WeatherOfCity, createIconSection, createElement};
+export { WeatherOfCity };

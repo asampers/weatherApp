@@ -1,6 +1,6 @@
 import Clock from "../assets/misc-icons/clock.png";
 import { format } from "date-fns";
-import { createIconSection, createElement } from "./weatherOfCity";
+import { determineIconFileSrc, createIconSection, createElement } from "./helper-functions";
 
 const ForecastOfCity = () => {
   const card = document.createElement("div");
@@ -63,22 +63,6 @@ function populateForecastDisplay(objs, data, day, i) {
   ).then((img) => {
     objs.icon.src = img;
   });
-}
-
-function determineIconFileName(data) {
-  let iconString = data;
-  let stringToRemove = "//cdn.weatherapi.com/weather/64x64";
-  let endToRemove = ".png";
-  let remainder = iconString.replace(stringToRemove, "");
-  let answer = remainder.replace(endToRemove, "");
-  return answer;
-}
-
-async function determineIconFileSrc(data) {
-  let fileName = determineIconFileName(data);
-  let module = await import(`../assets${fileName}.png`);
-  let img = await module.default;
-  return img;
 }
 
 function createHour() {

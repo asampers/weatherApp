@@ -1,6 +1,11 @@
 import Calendar from "../assets/misc-icons/calendar.png";
 import { format } from "date-fns";
-import { createIconSection, createElement } from "./weatherOfCity";
+
+import {
+  determineIconFileSrc,
+  createIconSection,
+  createElement,
+} from "./helper-functions";
 
 const FutureForecast = () => {
   const card = document.createElement("div");
@@ -69,22 +74,6 @@ function populateFutureDisplay(objs, data, ind) {
   objs.lowTemp.textContent = `${tempOne}°`;
   objs.highTemp.textContent = `${tempTwo}°`;
   objs.tempBar.style.background = `linear-gradient(90deg, ${colorOne} 0%, ${colorTwo} 90%)`;
-}
-
-function determineIconFileName(data) {
-  let iconString = data;
-  let stringToRemove = "//cdn.weatherapi.com/weather/64x64";
-  let endToRemove = ".png";
-  let remainder = iconString.replace(stringToRemove, "");
-  let answer = remainder.replace(endToRemove, "");
-  return answer;
-}
-
-async function determineIconFileSrc(data) {
-  let fileName = determineIconFileName(data);
-  let module = await import(`../assets${fileName}.png`);
-  let img = await module.default;
-  return img;
 }
 
 function createTempBar() {
