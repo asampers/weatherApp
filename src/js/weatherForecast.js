@@ -4,6 +4,7 @@ import {
   createIconSection,
   createElement,
   formatDayTime,
+  formatTemp,
 } from "./helper-functions";
 
 const ForecastOfCity = () => {
@@ -60,9 +61,9 @@ function populateForecastDisplay(objs, data, day, i) {
     data.forecast.forecastday[day].hour[i].time,
     "haa"
   );
-  objs.temp.textContent = formatTemp(
+  objs.temp.textContent = `${formatTemp(
     `${data.forecast.forecastday[day].hour[i].temp_f}`
-  );
+  )}°F`;
   determineIconFileSrc(
     data.forecast.forecastday[day].hour[i].condition.icon
   ).then((img) => {
@@ -90,11 +91,6 @@ function createDay(hourlySection) {
     let hour = createHour();
     hourlySection.append(hour);
   }
-}
-
-function formatTemp(string) {
-  let temp = string.replace(/\.\d/, "");
-  return `${temp}°F`;
 }
 
 export default ForecastOfCity;

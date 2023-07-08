@@ -39,9 +39,15 @@ function formatDayTime(string, style) {
   return formatted;
 }
 
+function formatTemp(string) {
+  let temp = string.replace(/\.\d/, "");
+  return temp;
+}
+
 export {
   determineIconFileSrc,
   createElement,
   createIconSection,
   formatDayTime,
+  formatTemp
 };

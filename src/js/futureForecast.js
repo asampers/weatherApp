@@ -5,6 +5,7 @@ import {
   createIconSection,
   createElement,
   formatDayTime,
+  formatTemp
 } from "./helper-functions";
 
 const FutureForecast = () => {
@@ -106,11 +107,6 @@ function createForecastDay() {
 
   section.append(day, icon, tempSection);
   return section;
-}
-
-function formatTemp(string) {
-  let temp = string.replace(/\.\d/, "");
-  return temp;
 }
 
 const tempColors = {
