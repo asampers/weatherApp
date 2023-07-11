@@ -5,7 +5,8 @@ import {
   createIconSection,
   createElement,
   formatDayTime,
-  formatTemp
+  formatTemp,
+  determineDay,
 } from "./helper-functions";
 
 const FutureForecast = () => {
@@ -34,25 +35,12 @@ const FutureForecast = () => {
 
   const update = (data) => {
     let days = dailySection.children;
-    let ind = 1;
+    let dayIndex = 1;
     for (let i = 0; i < days.length; i++) {
-      let dayDivs = days[i].children;
-      let day = dayDivs[0];
-      let icon = dayDivs[1];
-      let tempSection = dayDivs[2];
-      let tempDivs = tempSection.children;
-      let lowTemp = tempDivs[0];
-      let highTemp = tempDivs[2];
-      let tempBar = tempDivs[1];
-      let dayObjs = {
-        day,
-        icon,
-        lowTemp,
-        highTemp,
-        tempBar,
-      };
-      populateFutureDisplay(dayObjs, data, ind);
-      ind++;
+      let dayObjs = getChildObjs(days[i]);
+
+      populateFutureDisplay(dayObjs, data, dayIndex);
+      dayIndex++;
     }
   };
   card.append(headerSection, dailySection);
@@ -60,24 +48,34 @@ const FutureForecast = () => {
   return { card, update };
 };
 
-function populateFutureDisplay(objs, data, ind) {
-  let tempOne = formatTemp(`${data.forecast.forecastday[ind].day.mintemp_f}`);
-  let tempTwo = formatTemp(`${data.forecast.forecastday[ind].day.maxtemp_f}`);
+function populateFutureDisplay(objs, data, dayIndex) {
+  let today = determineDay(data, dayIndex);
+  let tempOne = formatTemp(`${today.day.mintemp_f}`);
+  let tempTwo = formatTemp(`${today.day.maxtemp_f}`);
   let colorOne = setColor(tempColors, tempOne);
   let colorTwo = setColor(tempColors, tempTwo);
 
-  objs.day.textContent = formatDayTime(
-    `${data.forecast.forecastday[ind].date} 00:00`,
-    "EEE"
-  );
-  determineIconFileSrc(data.forecast.forecastday[ind].day.condition.icon).then(
-    (img) => {
-      objs.icon.src = img;
-    }
-  );
+  objs.day.textContent = formatDayTime(`${today.date} 00:00`, "EEE");
+  determineIconFileSrc(today.day.condition.icon).then((img) => {
+    objs.icon.src = img;
+  });
   objs.lowTemp.textContent = `${tempOne}°`;
   objs.highTemp.textContent = `${tempTwo}°`;
   objs.tempBar.style.background = `linear-gradient(90deg, ${colorOne} 0%, ${colorTwo} 90%)`;
+}
+
+function getChildObjs(parent) {
+  let dayDivs = parent.children;
+  let day = dayDivs[0];
+  let icon = dayDivs[1];
+
+  let tempSection = dayDivs[2];
+  let tempDivs = tempSection.children;
+  let lowTemp = tempDivs[0];
+  let highTemp = tempDivs[2];
+  let tempBar = tempDivs[1];
+
+  return { day, icon, lowTemp, highTemp, tempBar };
 }
 
 function createTempBar() {

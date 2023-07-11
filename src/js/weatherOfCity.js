@@ -7,6 +7,7 @@ import {
   createElement,
   createIconSection,
   formatDayTime,
+  determineDay,
 } from "./helper-functions";
 
 const WeatherOfCity = () => {
@@ -105,6 +106,7 @@ const WeatherOfCity = () => {
 };
 
 function populateWeatherDisplay(objs, data) {
+  let today = determineDay(data, 0);
   objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
   objs.dateTime.textContent = formatDayTime(data.location.localtime, "EEE PPp");
   objs.temp.textContent = `${data.current.temp_f}°F`;
@@ -113,12 +115,12 @@ function populateWeatherDisplay(objs, data) {
   determineIconFileSrc(data.current.condition.icon).then((img) => {
     objs.icon.src = img;
   });
-  objs.highTemp.textContent = `H: ${data.forecast.forecastday[0].day.maxtemp_f}°F`;
-  objs.lowTemp.textContent = `L: ${data.forecast.forecastday[0].day.mintemp_f}°F`;
+  objs.highTemp.textContent = `H: ${today.day.maxtemp_f}°F`;
+  objs.lowTemp.textContent = `L: ${today.day.mintemp_f}°F`;
   objs.humidity.textContent = `${data.current.humidity}%`;
   objs.wind.textContent = `${data.current.wind_mph} mph ${data.current.wind_dir}`;
-  objs.sunrise.textContent = `${data.forecast.forecastday[0].astro.sunrise}`;
-  objs.sunset.textContent = `${data.forecast.forecastday[0].astro.sunset}`;
+  objs.sunrise.textContent = `${today.astro.sunrise}`;
+  objs.sunset.textContent = `${today.astro.sunset}`;
 }
 
 export default WeatherOfCity;

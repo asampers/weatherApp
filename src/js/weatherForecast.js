@@ -5,6 +5,7 @@ import {
   createElement,
   formatDayTime,
   formatTemp,
+  determineDay,
 } from "./helper-functions";
 
 const ForecastOfCity = () => {
@@ -30,24 +31,16 @@ const ForecastOfCity = () => {
 
   const update = (data) => {
     let hours = hourlySection.children;
-    let date = new Date(`${data.location.localtime}`);
-    let currentHour = date.getHours() + 1;
-    let currentDay = 0;
+    let hourIndex = determineHourIndex(data);
+    let dayIndex = 0;
     for (let i = 0; i < hours.length; i++) {
-      let hourDivs = hours[i].children;
-      let time = hourDivs[0];
-      let icon = hourDivs[1];
-      let temp = hourDivs[2];
-      let hourObjs = {
-        time,
-        icon,
-        temp,
-      };
-      populateForecastDisplay(hourObjs, data, currentDay, currentHour);
-      currentHour++;
-      if (currentHour == 24) {
-        currentHour = 0;
-        currentDay = 1;
+      let hourObjs = getChildObjs(hours[i]);
+
+      populateForecastDisplay(hourObjs, data, dayIndex, hourIndex);
+      hourIndex++;
+      if (hourIndex == 24) {
+        hourIndex = 0;
+        dayIndex = 1;
       }
     }
   };
@@ -56,19 +49,31 @@ const ForecastOfCity = () => {
   return { card, update };
 };
 
-function populateForecastDisplay(objs, data, day, i) {
-  objs.time.textContent = formatDayTime(
-    data.forecast.forecastday[day].hour[i].time,
-    "haa"
-  );
-  objs.temp.textContent = `${formatTemp(
-    `${data.forecast.forecastday[day].hour[i].temp_f}`
-  )}°F`;
-  determineIconFileSrc(
-    data.forecast.forecastday[day].hour[i].condition.icon
-  ).then((img) => {
+function populateForecastDisplay(objs, data, dayIndex, i) {
+  let today = determineDay(data, dayIndex);
+
+  objs.time.textContent = formatDayTime(today.hour[i].time, "haa");
+  objs.temp.textContent = `${formatTemp(`${today.hour[i].temp_f}`)}°F`;
+
+  determineIconFileSrc(today.hour[i].condition.icon).then((img) => {
     objs.icon.src = img;
   });
+}
+
+function determineHourIndex(data) {
+  let date = new Date(`${data.location.localtime}`);
+  let hourIndex = date.getHours() + 1;
+
+  return hourIndex;
+}
+
+function getChildObjs(parent) {
+  let hourDivs = parent.children;
+  let time = hourDivs[0];
+  let icon = hourDivs[1];
+  let temp = hourDivs[2];
+
+  return { time, icon, temp };
 }
 
 function createHour() {

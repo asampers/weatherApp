@@ -36,12 +36,20 @@ function createElement(text) {
 function formatDayTime(string, style) {
   let date = new Date(string);
   let formatted = format(date, style);
+  
   return formatted;
 }
 
 function formatTemp(string) {
   let temp = string.replace(/\.\d/, "");
+  
   return temp;
+}
+
+function determineDay(data, index) {
+  let day = data.forecast.forecastday[index];
+
+  return day;
 }
 
 export {
@@ -49,5 +57,6 @@ export {
   createElement,
   createIconSection,
   formatDayTime,
-  formatTemp
+  formatTemp,
+  determineDay
 };
