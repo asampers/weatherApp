@@ -107,20 +107,21 @@ const WeatherOfCity = () => {
 
 function populateWeatherDisplay(objs, data) {
   let today = determineDay(data, 0);
+
   objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
   objs.dateTime.textContent = formatDayTime(data.location.localtime, "EEE PPp");
   objs.temp.textContent = `${data.current.temp_f}°F`;
   objs.condition.textContent = `${data.current.condition.text}`;
-
-  determineIconFileSrc(data.current.condition.icon).then((img) => {
-    objs.icon.src = img;
-  });
   objs.highTemp.textContent = `H: ${today.day.maxtemp_f}°F`;
   objs.lowTemp.textContent = `L: ${today.day.mintemp_f}°F`;
   objs.humidity.textContent = `${data.current.humidity}%`;
   objs.wind.textContent = `${data.current.wind_mph} mph ${data.current.wind_dir}`;
   objs.sunrise.textContent = `${today.astro.sunrise}`;
   objs.sunset.textContent = `${today.astro.sunset}`;
+
+  determineIconFileSrc(data.current.condition.icon).then((img) => {
+    objs.icon.src = img;
+  });
 }
 
 export default WeatherOfCity;

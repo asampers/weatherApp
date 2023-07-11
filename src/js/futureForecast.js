@@ -56,12 +56,13 @@ function populateFutureDisplay(objs, data, dayIndex) {
   let colorTwo = setColor(tempColors, tempTwo);
 
   objs.day.textContent = formatDayTime(`${today.date} 00:00`, "EEE");
-  determineIconFileSrc(today.day.condition.icon).then((img) => {
-    objs.icon.src = img;
-  });
   objs.lowTemp.textContent = `${tempOne}°`;
   objs.highTemp.textContent = `${tempTwo}°`;
   objs.tempBar.style.background = `linear-gradient(90deg, ${colorOne} 0%, ${colorTwo} 90%)`;
+
+  determineIconFileSrc(today.day.condition.icon).then((img) => {
+    objs.icon.src = img;
+  });
 }
 
 function getChildObjs(parent) {
