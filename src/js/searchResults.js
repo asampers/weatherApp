@@ -19,6 +19,7 @@ const CitySearchResultsDisplay = () => {
       resultsContainer.appendChild(card);
     });
     if (results.length == 1) resultsContainer.firstChild.click();
+    if (results.length == 0) displayError();
   };
 
   const clear = () => {
@@ -70,6 +71,21 @@ async function setBackgroundImage(data) {
   );
   let imageUrl = image.url;
   document.body.style.backgroundImage = `url(${imageUrl})`;
+}
+
+function displayError() {
+  const error = document.createElement("div");
+  error.className = "alert alert-primary fade show";
+  error.innerHTML =
+    "<ion-icon name='thunderstorm-outline'></ion-icon>  I'm unfamiliar with that city. Please try again.  <ion-icon name='sunny-outline'></ion-icon>";
+  setTimeout(function () {
+    error.classList.toggle("show");
+    setTimeout(function () {
+      error.remove();
+    }, 500);
+  }, 10000);
+
+  SearchResults.resultsContainer.append(error);
 }
 
 export default SearchResults;
