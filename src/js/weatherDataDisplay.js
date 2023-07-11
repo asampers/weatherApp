@@ -1,6 +1,6 @@
 import FutureForecast from "./futureForecast";
 import ForecastOfCity from "./weatherForecast";
-import { WeatherOfCity } from "./weatherOfCity";
+import WeatherOfCity from "./weatherOfCity";
 
 const WeatherDataDisplay = () => {
   const container = document.createElement("div");

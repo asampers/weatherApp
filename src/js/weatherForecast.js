@@ -26,7 +26,7 @@ const ForecastOfCity = () => {
 
   createDay(hourlySection);
 
-  //End of Miscellaneous weather section
+  //End of Forecast City section
 
   const update = (data) => {
     let hours = hourlySection.children;

@@ -121,4 +121,4 @@ function populateWeatherDisplay(objs, data) {
   objs.sunset.textContent = `${data.forecast.forecastday[0].astro.sunset}`;
 }
 
-export { WeatherOfCity };
+export default WeatherOfCity;
