@@ -4,7 +4,7 @@ This Weather App is a web application built using JavaScript, webpack, and Boots
 
 ## Features
 
-- **Real-time Weather Information:** The app fetches weather data from [weatherAPI.com](weatherapi.com) and displays the current weather conditions for the specified location.
+- **Real-time Weather Information:** The app fetches weather data from [weatherAPI.com](https://www.weatherapi.com) and displays the current weather conditions for the specified location.
 
 - **Location Search:** Search parameters include city name or zipcode to make it easier for users to enter their desired location.
 
