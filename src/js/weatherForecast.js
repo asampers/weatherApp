@@ -83,7 +83,7 @@ function createHour() {
   const time = createElement("Now");
 
   const icon = new Image();
-  icon.src = new URL("../assets/day/302.png", import.meta.url);
+  //icon.src = new URL("../assets/day/302.png", import.meta.url);
 
   const temp = createElement("72°F");
 
