@@ -10,7 +10,9 @@ function determineIconFileName(string) {
 
 async function determineIconFileSrc(icon) {
   let fileName = determineIconFileName(icon);
-  let module = await import(`../assets${fileName}.png`);
+  let module = await import(
+    /* webpackMode: "lazy-once", webpackChunkName: "assets/img" */ `../assets${fileName}.png`
+  );
   let img = await module.default;
   return img;
 }
@@ -36,13 +38,13 @@ function createElement(text) {
 function formatDayTime(string, style) {
   let date = new Date(string);
   let formatted = format(date, style);
-  
+
   return formatted;
 }
 
 function formatTemp(string) {
   let temp = string.replace(/\.\d/, "");
-  
+
   return temp;
 }
 
@@ -58,5 +60,5 @@ export {
   createIconSection,
   formatDayTime,
   formatTemp,
-  determineDay
+  determineDay,
 };
