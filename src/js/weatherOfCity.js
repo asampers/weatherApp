@@ -38,7 +38,6 @@ const WeatherOfCity = () => {
   condition.textContent = "Moderate rain";
 
   const icon = new Image();
-  //icon.src = new URL("../assets/day/302.png", import.meta.url);
 
   const highLowTemps = document.createElement("div");
 

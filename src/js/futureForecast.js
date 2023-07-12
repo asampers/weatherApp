@@ -96,7 +96,6 @@ function createForecastDay() {
   const day = createElement("Fri");
 
   const icon = new Image();
-  //icon.src = new URL("../assets/day/302.png", import.meta.url);
 
   const tempBar = createTempBar();
 

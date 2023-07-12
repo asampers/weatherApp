@@ -19,6 +19,7 @@ const CitySearchResultsDisplay = () => {
       resultsContainer.appendChild(card);
     });
     if (results.length == 1) resultsContainer.firstChild.click();
+
     if (results.length == 0) displayError();
   };
 
@@ -75,9 +76,9 @@ async function setBackgroundImage(data) {
 
 function displayError() {
   const error = document.createElement("div");
-  error.className = "alert alert-primary fade show";
+  error.className = "alert alert-primary fade show d-flex align-items-center";
   error.innerHTML =
-    "<ion-icon name='thunderstorm-outline'></ion-icon>  I'm unfamiliar with that city. Please try again.  <ion-icon name='sunny-outline'></ion-icon>";
+    "<ion-icon class='me-3' name='thunderstorm-outline'></ion-icon><p class='text-center me-3 m-auto'>I'm unfamiliar with that city.<br>Please try again.</p><ion-icon name='sunny-outline'></ion-icon>";
   setTimeout(function () {
     error.classList.toggle("show");
     setTimeout(function () {
