@@ -36,10 +36,9 @@ function createElement(text) {
 }
 
 function formatDayTime(string, style) {
-  console.log(string);
   let date = new Date(string);
   let formatted = format(date, style);
-  //console.log(formatted);
+
   return formatted;
 }
 
