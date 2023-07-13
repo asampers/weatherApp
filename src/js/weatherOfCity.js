@@ -106,9 +106,10 @@ const WeatherOfCity = () => {
 
 function populateWeatherDisplay(objs, data) {
   let today = determineDay(data, 0);
+  let dayTime = adjustTimeToMilitary(data.location.localtime);
 
   objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
-  objs.dateTime.textContent = formatDayTime(data.location.localtime, "EEE PPp");
+  objs.dateTime.textContent = formatDayTime(dayTime, "EEE PPp");
   objs.temp.textContent = `${data.current.temp_f}°F`;
   objs.condition.textContent = `${data.current.condition.text}`;
   objs.highTemp.textContent = `H: ${today.day.maxtemp_f}°F`;
@@ -121,6 +122,14 @@ function populateWeatherDisplay(objs, data) {
   determineIconFileSrc(data.current.condition.icon).then((img) => {
     objs.icon.src = img;
   });
+}
+
+function adjustTimeToMilitary(dayTime) {
+  let formatted = dayTime;
+  if (formatted.length === 15) {
+    formatted = formatted.replace(" ", " 0");
+  }
+  return formatted;
 }
 
 export default WeatherOfCity;
