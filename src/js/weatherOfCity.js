@@ -8,6 +8,7 @@ import {
   createIconSection,
   formatDayTime,
   determineDay,
+  adjustTimeToMilitary
 } from "./helper-functions";
 
 const WeatherOfCity = () => {
@@ -122,14 +123,6 @@ function populateWeatherDisplay(objs, data) {
   determineIconFileSrc(data.current.condition.icon).then((img) => {
     objs.icon.src = img;
   });
-}
-
-function adjustTimeToMilitary(dayTime) {
-  let formatted = dayTime;
-  if (formatted.length === 15) {
-    formatted = formatted.replace(" ", " 0");
-  }
-  return formatted;
 }
 
 export default WeatherOfCity;

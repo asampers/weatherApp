@@ -6,6 +6,7 @@ import {
   formatDayTime,
   formatTemp,
   determineDay,
+  adjustTimeToMilitary,
 } from "./helper-functions";
 
 const ForecastOfCity = () => {
@@ -61,7 +62,8 @@ function populateForecastDisplay(objs, data, dayIndex, i) {
 }
 
 function determineHourIndex(data) {
-  let date = new Date(`${data.location.localtime}`);
+  let dayTime = adjustTimeToMilitary(data.location.localtime);
+  let date = new Date(`${dayTime}`);
   let hourIndex = date.getHours() + 1;
 
   return hourIndex;

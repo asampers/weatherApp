@@ -38,7 +38,7 @@ function createElement(text) {
 function formatDayTime(string, style) {
   let date = new Date(string);
   let formatted = format(date, style);
-
+  
   return formatted;
 }
 
@@ -54,6 +54,14 @@ function determineDay(data, index) {
   return day;
 }
 
+function adjustTimeToMilitary(dayTime) {
+  let formatted = dayTime;
+  if (formatted.length === 15) {
+    formatted = formatted.replace(" ", " 0");
+  }
+  return formatted;
+}
+
 export {
   determineIconFileSrc,
   createElement,
@@ -61,4 +69,5 @@ export {
   formatDayTime,
   formatTemp,
   determineDay,
+  adjustTimeToMilitary,
 };
