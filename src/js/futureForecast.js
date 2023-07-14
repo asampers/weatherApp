@@ -16,7 +16,7 @@ const FutureForecast = () => {
   const headerSection = createIconSection(Calendar, "calendar");
   headerSection.classList.remove("flex-column");
 
-  const header = createElement("Future Forecast");
+  const header = createElement("div", "Future Forecast");
   header.className = "ms-2";
 
   headerSection.append(header);
@@ -50,14 +50,16 @@ const FutureForecast = () => {
 
 function populateFutureDisplay(objs, data, dayIndex) {
   let today = determineDay(data, dayIndex);
-  let tempOne = formatTemp(`${today.day.mintemp_f}`);
-  let tempTwo = formatTemp(`${today.day.maxtemp_f}`);
-  let colorOne = setColor(tempColors, tempOne);
-  let colorTwo = setColor(tempColors, tempTwo);
+  let tempOneF = formatTemp(`${today.day.mintemp_f}`);
+  let tempTwoF = formatTemp(`${today.day.maxtemp_f}`);
+  let colorOne = setColor(tempColors, tempOneF);
+  let colorTwo = setColor(tempColors, tempTwoF);
 
   objs.day.textContent = formatDayTime(`${today.date} 00:00`, "EEE");
-  objs.lowTemp.textContent = `${tempOne}°`;
-  objs.highTemp.textContent = `${tempTwo}°`;
+  objs.lowTempF.textContent = `${tempOneF}°`;
+  objs.highTempF.textContent = `${tempTwoF}°`;
+  objs.lowTempC.textContent = `${formatTemp(`${today.day.mintemp_c}`)}°`;
+  objs.highTempC.textContent = `${formatTemp(`${today.day.maxtemp_c}`)}°`;
   objs.tempBar.style.background = `linear-gradient(90deg, ${colorOne} 0%, ${colorTwo} 90%)`;
 
   determineIconFileSrc(today.day.condition.icon).then((img) => {
@@ -72,11 +74,13 @@ function getChildObjs(parent) {
 
   let tempSection = dayDivs[2];
   let tempDivs = tempSection.children;
-  let lowTemp = tempDivs[0];
-  let highTemp = tempDivs[2];
-  let tempBar = tempDivs[1];
+  let lowTempC = tempDivs[0];
+  let lowTempF = tempDivs[1];
+  let tempBar = tempDivs[2];
+  let highTempC = tempDivs[3];
+  let highTempF = tempDivs[4];
 
-  return { day, icon, lowTemp, highTemp, tempBar };
+  return { day, icon, lowTempC, lowTempF, tempBar, highTempC, highTempF };
 }
 
 function createTempBar() {
@@ -93,7 +97,7 @@ function createForecastDay() {
   const section = document.createElement("div");
   section.className = "col d-flex align-items-center";
 
-  const day = createElement("Fri");
+  const day = createElement("div", "Fri");
 
   const icon = new Image();
 
@@ -101,7 +105,17 @@ function createForecastDay() {
 
   const tempSection = document.createElement("div");
   tempSection.className = "d-flex align-items-center";
-  tempSection.append(createElement("62"), tempBar, createElement("81"));
+
+  const lowTempC = createElement("span", "18");
+  lowTempC.className = "metric";
+  const lowTempF = createElement("span", "62");
+  lowTempF.className = "imperial";
+  const highTempC = createElement("span", "29");
+  highTempC.className = "metric";
+  const highTempF = createElement("span", "81");
+  highTempF.className = "imperial";
+
+  tempSection.append(lowTempC, lowTempF, tempBar, highTempC, highTempF);
 
   section.append(day, icon, tempSection);
   return section;

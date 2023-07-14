@@ -1,29 +1,14 @@
-let system = "imperial";
-let wind;
-let temp;
-let windUnit;
-let tempUnit;
-
-if (system === "imperial") {
-  wind = "wind_mph";
-  temp = "temp_f";
-  windUnit = "mph";
-  tempUnit = "F";
-} else {
-  wind = "wind_kph";
-  temp = "temp_c";
-  windUnit = "kph";
-  tempUnit = "C";
-}
+let hiding = "metric";
 
 const toggleUnits = () => {
-  system = system === "imperial" ? "metric" : "imperial";
+  hiding = hiding === "imperial" ? "metric" : "imperial";
 
   let ltrs = document.querySelectorAll(".celFah");
 
   for (let i = 0; i < ltrs.length; i++) {
     ltrs[i].classList.toggle("fw-bold");
   }
+
   let elements = document.querySelectorAll(".metric, .imperial");
 
   for (let i = 0; i < elements.length; i++) {
@@ -35,8 +20,14 @@ const toggleUnits = () => {
       elements[i].setAttribute("hidden", "hidden");
     }
   }
-
-  console.log(system);
 };
 
-export { toggleUnits };
+const setHidden = () => {
+  let elements = document.querySelectorAll(`.${hiding}`);
+
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].setAttribute("hidden", "hidden");
+  }
+};
+
+export { toggleUnits, setHidden };

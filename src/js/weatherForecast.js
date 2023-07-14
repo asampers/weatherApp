@@ -16,7 +16,7 @@ const ForecastOfCity = () => {
   const headerSection = createIconSection(Clock, "clock");
   headerSection.classList.remove("flex-column");
 
-  const header = createElement("Hourly Forecast");
+  const header = createElement("div", "Hourly Forecast");
   header.className = "ms-2";
 
   headerSection.append(header);
@@ -55,7 +55,8 @@ function populateForecastDisplay(objs, data, dayIndex, i) {
   let today = determineDay(data, dayIndex);
 
   objs.time.textContent = formatDayTime(today.hour[i].time, "haa");
-  objs.temp.textContent = `${formatTemp(`${today.hour[i].temp_f}`)}°F`;
+  objs.tempF.textContent = `${formatTemp(`${today.hour[i].temp_f}`)}°F`;
+  objs.tempC.textContent = `${formatTemp(`${today.hour[i].temp_c}`)}°C`;
 
   determineIconFileSrc(today.hour[i].condition.icon).then((img) => {
     objs.icon.src = img;
@@ -74,22 +75,26 @@ function getChildObjs(parent) {
   let hourDivs = parent.children;
   let time = hourDivs[0];
   let icon = hourDivs[1];
-  let temp = hourDivs[2];
+  let tempC = hourDivs[2];
+  let tempF = hourDivs[3];
 
-  return { time, icon, temp };
+  return { time, icon, tempC, tempF };
 }
 
 function createHour() {
   const hour = document.createElement("div");
   hour.className = "d-flex flex-column align-items-center mb-2";
 
-  const time = createElement("Now");
+  const time = createElement("div", "Now");
 
   const icon = new Image();
 
-  const temp = createElement("72°F");
+  const tempC = createElement("span", "20°C");
+  tempC.className = "metric"
+  const tempF = createElement("span", "72°F");
+  tempF.className = "imperial"
 
-  hour.append(time, icon, temp);
+  hour.append(time, icon, tempC, tempF);
   return hour;
 }
 

@@ -28,8 +28,8 @@ function createIconSection(iconSrc, altText) {
   return section;
 }
 
-function createElement(text) {
-  const element = document.createElement("div");
+function createElement(el, text) {
+  const element = document.createElement(`${el}`);
   element.textContent = text;
 
   return element;

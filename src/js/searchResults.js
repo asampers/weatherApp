@@ -7,6 +7,7 @@ import {
   weatherOfCity,
   futureForecast,
 } from "./weatherDataDisplay";
+import { setHidden } from "./units";
 
 const CitySearchResultsDisplay = () => {
   const resultsContainer = document.createElement("div");
@@ -54,6 +55,7 @@ function CityLink(city) {
         futureForecast.card
       );
       weatherDisplay.append(displayContent.container);
+      setHidden();
     });
 
     SearchResults.clear();

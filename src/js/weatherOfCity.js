@@ -16,12 +16,10 @@ const WeatherOfCity = () => {
   card.className = "city-weather";
 
   //Header of Card
-  const cityName = document.createElement("div");
-  cityName.textContent = "Milwaukee, Wisconsin";
+  const cityName = createElement("div", "Milwaukee, Wisconsin");
   cityName.className = "h3";
 
-  const dateTime = document.createElement("div");
-  dateTime.textContent = "2023-06-29 15:05";
+  const dateTime = createElement("div", "2023-06-29 15:05");
   dateTime.className = "small";
 
   //Main Section
@@ -31,40 +29,30 @@ const WeatherOfCity = () => {
   const tempSection = document.createElement("div");
   tempSection.className = "d-flex align-items-center";
 
-  const tempC = document.createElement("span");
+  const tempC = createElement("span", "29.2°C");
   tempC.className = "me-4 flex-grow-1 fs-2 metric";
-  tempC.setAttribute("hidden", "hidden");
-  tempC.textContent = "29.2°C";
 
-  const tempF = document.createElement("span");
+  const tempF = createElement("span", "89.2°F");
   tempF.className = "me-4 flex-grow-1 fs-2 imperial";
-  tempF.textContent = "89.2°F";
 
-  const condition = document.createElement("div");
-  condition.textContent = "Moderate rain";
+  const condition = createElement("div", "Moderate rain");
 
   const icon = new Image();
 
   const highLowTemps = document.createElement("div");
   highLowTemps.className = "d-flex flex-column";
 
-  const highTempC = document.createElement("span");
+  const highTempC = createElement("span", "34.2°C");
   highTempC.className = "small metric";
-  highTempC.setAttribute("hidden", "hidden");
-  highTempC.textContent = "34.2°C";
 
-  const highTempF = document.createElement("span");
+  const highTempF = document.createElement("span", "84.2°F");
   highTempF.className = "small imperial";
-  highTempF.textContent = "84.2°F";
 
-  const lowTempC = document.createElement("span");
+  const lowTempC = createElement("span", "21.7°C");
   lowTempC.className = "small metric";
-  lowTempC.setAttribute("hidden", "hidden");
-  lowTempC.textContent = "21.7°C";
 
-  const lowTempF = document.createElement("span");
+  const lowTempF = document.createElement("span", "61.7°F");
   lowTempF.className = "small imperial";
-  lowTempF.textContent = "61.7°F";
 
   highLowTemps.append(highTempC, highTempF, lowTempC, lowTempF);
   tempSection.append(tempC, tempF, highLowTemps);
@@ -75,23 +63,24 @@ const WeatherOfCity = () => {
   miscWeatherSection.className = "d-flex justify-content-around mt-5";
 
   const humiditySection = createIconSection(Humidity, "humidity");
-  const humidity = createElement("52%");
+  const humidity = createElement("div", "52%");
   humiditySection.appendChild(humidity);
 
   const windSection = createIconSection(Wind, "wind");
   const windC = document.createElement("span");
   windC.className = "metric";
-  windC.setAttribute("hidden", "hidden");
+
   const windF = document.createElement("span");
   windF.className = "imperial";
+
   windSection.append(windC, windF);
 
   const sunriseSection = createIconSection(Sunrise, "sunrise");
-  const sunrise = createElement("05:15 AM");
+  const sunrise = createElement("div", "05:15 AM");
   sunriseSection.appendChild(sunrise);
 
   const sunsetSection = createIconSection(Sunset, "sunset");
-  const sunset = createElement("08:35 PM");
+  const sunset = createElement("div", "08:35 PM");
   sunsetSection.appendChild(sunset);
 
   miscWeatherSection.append(
