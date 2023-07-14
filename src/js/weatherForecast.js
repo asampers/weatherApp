@@ -37,12 +37,13 @@ const ForecastOfCity = () => {
     for (let i = 0; i < hours.length; i++) {
       let hourObjs = getChildObjs(hours[i]);
 
-      populateForecastDisplay(hourObjs, data, dayIndex, hourIndex);
-      hourIndex++;
       if (hourIndex == 24) {
         hourIndex = 0;
         dayIndex = 1;
       }
+
+      populateForecastDisplay(hourObjs, data, dayIndex, hourIndex);
+      hourIndex++;
     }
   };
   card.append(headerSection, hourlySection);
