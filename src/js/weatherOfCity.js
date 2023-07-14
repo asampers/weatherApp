@@ -135,22 +135,30 @@ function populateWeatherDisplay(objs, data) {
 
   objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
   objs.dateTime.textContent = formatDayTime(dayTime, "EEE PPp");
-  objs.tempC.textContent = `${data.current.temp_c}°C`;
-  objs.tempF.textContent = `${data.current.temp_f}°F`;
   objs.condition.textContent = `${data.current.condition.text}`;
-  objs.highTempC.textContent = `H: ${today.day.maxtemp_c}°C`;
-  objs.highTempF.textContent = `H: ${today.day.maxtemp_f}°F`;
-  objs.lowTempC.textContent = `L: ${today.day.mintemp_c}°C`;
-  objs.lowTempF.textContent = `L: ${today.day.mintemp_f}°F`;
   objs.humidity.textContent = `${data.current.humidity}%`;
-  objs.windC.textContent = `${data.current.wind_kph} kph ${data.current.wind_dir}`;
-  objs.windF.textContent = `${data.current.wind_mph} mph ${data.current.wind_dir}`;
   objs.sunrise.textContent = `${today.astro.sunrise}`;
   objs.sunset.textContent = `${today.astro.sunset}`;
+  populateMetricDisplay(objs, data, today);
+  populateImperialDisplay(objs, data, today);
 
   determineIconFileSrc(data.current.condition.icon).then((img) => {
     objs.icon.src = img;
   });
+}
+
+function populateMetricDisplay(objs, data, today) {
+  objs.tempC.textContent = `${data.current.temp_c}°C`;
+  objs.highTempC.textContent = `H: ${today.day.maxtemp_c}°C`;
+  objs.lowTempC.textContent = `L: ${today.day.mintemp_c}°C`;
+  objs.windC.textContent = `${data.current.wind_kph} kph ${data.current.wind_dir}`;
+}
+
+function populateImperialDisplay(objs, data, today) {
+  objs.tempF.textContent = `${data.current.temp_f}°F`;
+  objs.highTempF.textContent = `H: ${today.day.maxtemp_f}°F`;
+  objs.lowTempF.textContent = `L: ${today.day.mintemp_f}°F`;
+  objs.windF.textContent = `${data.current.wind_mph} mph ${data.current.wind_dir}`;
 }
 
 export default WeatherOfCity;
