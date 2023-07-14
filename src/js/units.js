@@ -53,6 +53,18 @@ const setHidden = () => {
   }
 };
 
+const clearHidden = () => {
+  let elements = document.querySelectorAll(".metric, .imperial");
+
+  for (let i = 0; i < elements.length; i++) {
+    let hidden = elements[i].getAttribute("hidden");
+
+    if (hidden) {
+      elements[i].removeAttribute("hidden");
+    }
+  }
+};
+
 const unitSlider = UnitSlider();
 
-export { unitSlider, addSliderEventListener, setHidden };
+export { unitSlider, addSliderEventListener, setHidden, clearHidden };

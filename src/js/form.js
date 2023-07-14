@@ -2,6 +2,7 @@ import { apiCallGenerator } from "./api-call";
 import { apiTermSetter } from "./api-term-setter";
 import SearchResults from "./searchResults";
 import { displayContent } from "./weatherDataDisplay";
+import { clearHidden } from "./units";
 
 const SearchBar = () => {
   const form = document.createElement("form");
@@ -33,6 +34,7 @@ const SearchBar = () => {
     });
 
     form.reset();
+    clearHidden();
   });
 
   searchDiv.append(searchbar, submit);
