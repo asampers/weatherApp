@@ -8,7 +8,7 @@ import {
   createIconSection,
   formatDayTime,
   determineDay,
-  adjustTimeToMilitary
+  adjustTimeToMilitary,
 } from "./helper-functions";
 
 const WeatherOfCity = () => {
@@ -31,9 +31,14 @@ const WeatherOfCity = () => {
   const tempSection = document.createElement("div");
   tempSection.className = "d-flex align-items-center";
 
-  const temp = document.createElement("div");
-  temp.className = "me-4 flex-grow-1 fs-2";
-  temp.textContent = "84.2°F";
+  const tempC = document.createElement("span");
+  tempC.className = "me-4 flex-grow-1 fs-2 metric";
+  tempC.setAttribute("hidden", "hidden");
+  tempC.textContent = "29.2°C";
+
+  const tempF = document.createElement("span");
+  tempF.className = "me-4 flex-grow-1 fs-2 imperial";
+  tempF.textContent = "89.2°F";
 
   const condition = document.createElement("div");
   condition.textContent = "Moderate rain";
@@ -41,17 +46,28 @@ const WeatherOfCity = () => {
   const icon = new Image();
 
   const highLowTemps = document.createElement("div");
+  highLowTemps.className = "d-flex flex-column";
 
-  const highTemp = document.createElement("div");
-  highTemp.className = "small";
-  highTemp.textContent = "84.2°F";
+  const highTempC = document.createElement("span");
+  highTempC.className = "small metric";
+  highTempC.setAttribute("hidden", "hidden");
+  highTempC.textContent = "34.2°C";
 
-  const lowTemp = document.createElement("div");
-  lowTemp.className = "small";
-  lowTemp.textContent = "61.7°F";
+  const highTempF = document.createElement("span");
+  highTempF.className = "small imperial";
+  highTempF.textContent = "84.2°F";
 
-  highLowTemps.append(highTemp, lowTemp);
-  tempSection.append(temp, highLowTemps);
+  const lowTempC = document.createElement("span");
+  lowTempC.className = "small metric";
+  lowTempC.setAttribute("hidden", "hidden");
+  lowTempC.textContent = "21.7°C";
+
+  const lowTempF = document.createElement("span");
+  lowTempF.className = "small imperial";
+  lowTempF.textContent = "61.7°F";
+
+  highLowTemps.append(highTempC, highTempF, lowTempC, lowTempF);
+  tempSection.append(tempC, tempF, highLowTemps);
   mainSection.append(icon, tempSection, condition);
 
   //Miscellaneous Weather Section
@@ -63,8 +79,12 @@ const WeatherOfCity = () => {
   humiditySection.appendChild(humidity);
 
   const windSection = createIconSection(Wind, "wind");
-  const wind = createElement("9.4 mph ENE");
-  windSection.appendChild(wind);
+  const windC = document.createElement("span");
+  windC.className = "metric";
+  windC.setAttribute("hidden", "hidden");
+  const windF = document.createElement("span");
+  windF.className = "imperial";
+  windSection.append(windC, windF);
 
   const sunriseSection = createIconSection(Sunrise, "sunrise");
   const sunrise = createElement("05:15 AM");
@@ -86,13 +106,17 @@ const WeatherOfCity = () => {
     const cardObjs = {
       cityName,
       dateTime,
-      temp,
+      tempC,
+      tempF,
       condition,
       icon,
-      highTemp,
-      lowTemp,
+      highTempC,
+      highTempF,
+      lowTempC,
+      lowTempF,
       humidity,
-      wind,
+      windC,
+      windF,
       sunrise,
       sunset,
     };
@@ -111,12 +135,16 @@ function populateWeatherDisplay(objs, data) {
 
   objs.cityName.textContent = `${data.location.name}, ${data.location.region}`;
   objs.dateTime.textContent = formatDayTime(dayTime, "EEE PPp");
-  objs.temp.textContent = `${data.current.temp_f}°F`;
+  objs.tempC.textContent = `${data.current.temp_c}°C`;
+  objs.tempF.textContent = `${data.current.temp_f}°F`;
   objs.condition.textContent = `${data.current.condition.text}`;
-  objs.highTemp.textContent = `H: ${today.day.maxtemp_f}°F`;
-  objs.lowTemp.textContent = `L: ${today.day.mintemp_f}°F`;
+  objs.highTempC.textContent = `H: ${today.day.maxtemp_c}°C`;
+  objs.highTempF.textContent = `H: ${today.day.maxtemp_f}°F`;
+  objs.lowTempC.textContent = `L: ${today.day.mintemp_c}°C`;
+  objs.lowTempF.textContent = `L: ${today.day.mintemp_f}°F`;
   objs.humidity.textContent = `${data.current.humidity}%`;
-  objs.wind.textContent = `${data.current.wind_mph} mph ${data.current.wind_dir}`;
+  objs.windC.textContent = `${data.current.wind_kph} kph ${data.current.wind_dir}`;
+  objs.windF.textContent = `${data.current.wind_mph} mph ${data.current.wind_dir}`;
   objs.sunrise.textContent = `${today.astro.sunrise}`;
   objs.sunset.textContent = `${today.astro.sunset}`;
 
